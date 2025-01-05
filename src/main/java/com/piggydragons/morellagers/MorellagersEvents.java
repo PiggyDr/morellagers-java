@@ -1,8 +1,8 @@
 package com.piggydragons.morellagers;
 
+import com.piggydragons.morellagers.client.renderer.DefaultedEntityRenderer;
 import com.piggydragons.morellagers.entities.Necrillager;
 import com.piggydragons.morellagers.registry.MorellagersEntities;
-import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -20,7 +20,7 @@ public class MorellagersEvents {
 
         @SubscribeEvent
         public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
-            event.registerEntityRenderer(MorellagersEntities.NECRILLAGER.get(), NoopRenderer::new);
+            DefaultedEntityRenderer.register(event, MorellagersEntities.NECRILLAGER);
         }
     }
 }

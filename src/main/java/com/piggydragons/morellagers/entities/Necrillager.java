@@ -7,8 +7,14 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.level.Level;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class Necrillager extends AbstractIllager {
+public class Necrillager extends AbstractIllager implements GeoAnimatable {
+
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public Necrillager(EntityType<? extends AbstractIllager> type, Level level) {
         super(type, level);
@@ -31,5 +37,20 @@ public class Necrillager extends AbstractIllager {
                 .add(Attributes.ATTACK_DAMAGE, 0)
                 .add(Attributes.FOLLOW_RANGE, 64)
                 .build();
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+        // TODO add something
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return cache;
+    }
+
+    @Override
+    public double getTick(Object o) {
+        return 0;
     }
 }
