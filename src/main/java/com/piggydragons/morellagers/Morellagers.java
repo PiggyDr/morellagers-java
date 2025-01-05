@@ -1,6 +1,7 @@
 package com.piggydragons.morellagers;
 
 import com.mojang.logging.LogUtils;
+import com.piggydragons.morellagers.registry.MorellagersEntities;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -12,6 +13,8 @@ public class Morellagers {
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public Morellagers(FMLJavaModLoadingContext context) {
-        IEventBus modEventBus = context.getModEventBus();
+        IEventBus bus = context.getModEventBus();
+
+        MorellagersEntities.ENTITIES.register(bus);
     }
 }
