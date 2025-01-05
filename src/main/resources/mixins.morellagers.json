@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "minVersion": "0.8.5",
+  "refmap": "mixins.morellagers.refmap.json",
+  "package": "com.piggydragons.morellagers.mixin",
+  "mixins": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
