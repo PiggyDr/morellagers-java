@@ -4,6 +4,7 @@
   "refmap": "mixins.morellagers.refmap.json",
   "package": "com.piggydragons.morellagers.mixin",
   "mixins": [
+    "MobMixin"
   ],
   "injectors": {
     "defaultRequire": 1

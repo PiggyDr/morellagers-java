@@ -1,10 +1,19 @@
 package com.piggydragons.morellagers;
 
+import com.mojang.datafixers.types.templates.Sum;
+import com.piggydragons.morellagers.capability.SummonedMinionCap;
 import com.piggydragons.morellagers.client.renderer.DefaultedEntityRenderer;
 import com.piggydragons.morellagers.entities.Necrillager;
 import com.piggydragons.morellagers.registry.MorellagersEntities;
+import com.piggydragons.morellagers.registry.MorellagersItems;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -21,6 +30,37 @@ public class MorellagersEvents {
         @SubscribeEvent
         public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
             DefaultedEntityRenderer.register(event, MorellagersEntities.NECRILLAGER);
+        }
+
+        @SubscribeEvent
+        public static void addTabItems(BuildCreativeModeTabContentsEvent event) {
+            if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
+                event.accept(MorellagersItems.NECRILLAGER_SPAWN_EGG);
+            }
+        }
+    }
+
+    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, modid = Morellagers.MOD_ID)
+    public static class ForgeBus {
+
+        @SubscribeEvent
+        public static void attachCapabilities(AttachCapabilitiesEvent<Entity> event) {
+            if (event.getObject() instanceof Mob) {
+                event.addCapability(SummonedMinionCap.ID, new SummonedMinionCap());
+            }
+        }
+
+        @SubscribeEvent
+        public static void onMobTarget(LivingChangeTargetEvent event) {
+            if (event.getNewTarget() != null
+                    && event.getEntity().getCapability(SummonedMinionCap.SUMMONED_MINION)
+                    .map(cap -> cap.getSummonerUUID() == event.getNewTarget().getUUID()
+                        || event.getNewTarget().getCapability(SummonedMinionCap.SUMMONED_MINION)
+                            .map(targetCap -> targetCap.getSummonerUUID() == cap.getSummonerUUID())
+                            .orElse(false))
+                    .orElse(false)) {
+                event.setCanceled(true);
+            }
         }
     }
 }
