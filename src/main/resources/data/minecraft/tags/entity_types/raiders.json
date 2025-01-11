@@ -1,0 +1,8 @@
+{
+  "replace": "false",
+  "values": [
+    "morellagers:armored_pillager",
+    "morellagers:elite_pillager",
+    "morellagers:necrillager"
+  ]
+}

@@ -32,6 +32,8 @@ public class MorellagersEvents {
         public static void addTabItems(BuildCreativeModeTabContentsEvent event) {
             if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
                 event.accept(MorellagersItems.NECRILLAGER_SPAWN_EGG);
+                event.accept(MorellagersItems.ARMORED_PILLAGER_SPAWN_EGG);
+                event.accept(MorellagersItems.ELITE_PILLAGER_SPAWN_EGG);
             }
         }
     }

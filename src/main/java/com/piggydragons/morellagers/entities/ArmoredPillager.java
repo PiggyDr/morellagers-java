@@ -32,6 +32,12 @@ public class ArmoredPillager extends Pillager {
                 Arrays.stream(EquipmentSlot.values()).forEach(slot -> survivor.setItemSlot(slot, this.getItemBySlot(slot)));
                 survivor.setXRot(this.getXRot());
                 survivor.setYRot(this.getYRot());
+                this.armorDropChances[0] = 0;
+                this.armorDropChances[1] = 0;
+                this.armorDropChances[2] = 0;
+                this.armorDropChances[3] = 0;
+                this.handDropChances[0] = 0;
+                this.handDropChances[1] = 0;
                 super.die(source);
                 this.discard();
             }
