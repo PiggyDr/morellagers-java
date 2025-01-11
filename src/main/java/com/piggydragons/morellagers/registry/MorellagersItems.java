@@ -10,5 +10,5 @@ import net.minecraftforge.registries.RegistryObject;
 public class MorellagersItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Morellagers.MOD_ID);
 
-    public static final RegistryObject<ForgeSpawnEggItem> NECRILLAGER_SPAWN_EGG = ITEMS.register("necrillager_spawn_egg", () -> new ForgeSpawnEggItem(MorellagersEntities.NECRILLAGER, 0x353538, 0x0c31b4, new Item.Properties()));
+    public static final RegistryObject<ForgeSpawnEggItem> NECRILLAGER_SPAWN_EGG = ITEMS.register("necrillager_spawn_egg", () -> new ForgeSpawnEggItem(MorellagersEntities.NECRILLAGER, 5451574, 0x512e4f, new Item.Properties()));
 }

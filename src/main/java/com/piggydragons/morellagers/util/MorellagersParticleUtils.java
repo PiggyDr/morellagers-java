@@ -1,11 +1,10 @@
 package com.piggydragons.morellagers.util;
 
-import com.piggydragons.morellagers.Morellagers;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 
-public class ParticleUtils {
+public class MorellagersParticleUtils {
 
     public static void spawnEntityEffectWithDelta(Level level, double x, double y, double z, double dx, double dy, double dz, double r, double g, double b, int count) {
         if (!level.isClientSide())

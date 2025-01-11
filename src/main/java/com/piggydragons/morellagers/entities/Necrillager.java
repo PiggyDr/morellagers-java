@@ -1,12 +1,10 @@
 package com.piggydragons.morellagers.entities;
 
-import com.piggydragons.morellagers.Morellagers;
 import com.piggydragons.morellagers.capability.SummonedMinionCap;
 import com.piggydragons.morellagers.registry.MorellagersMobEffects;
-import com.piggydragons.morellagers.util.ParticleUtils;
+import com.piggydragons.morellagers.util.MorellagersParticleUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -44,7 +42,6 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-import java.util.Comparator;
 import java.util.EnumSet;
 
 public class Necrillager extends AbstractIllager implements GeoEntity {
@@ -159,7 +156,7 @@ public class Necrillager extends AbstractIllager implements GeoEntity {
     public void tick() {
         super.tick();
         if (isCasting() && level().isClientSide())
-            ParticleUtils.spawnEntityEffectWithDelta(level(), getX(), getY(0.5), getZ(), 0.45, 0.45, 0.45, 0, 1, (double) 1 / 0x94, 2); // spawn casting particles
+            MorellagersParticleUtils.spawnEntityEffectWithDelta(level(), getX(), getY(0.5), getZ(), 0.45, 0.45, 0.45, 0, 1, (double) 1 / 0x94, 2); // spawn casting particles
     }
 
     class SummonGoal extends Goal {

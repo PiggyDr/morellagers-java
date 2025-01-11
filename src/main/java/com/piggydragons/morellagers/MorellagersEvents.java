@@ -1,15 +1,14 @@
 package com.piggydragons.morellagers;
 
-import com.mojang.datafixers.types.templates.Sum;
 import com.piggydragons.morellagers.capability.SummonedMinionCap;
-import com.piggydragons.morellagers.client.renderer.DefaultedEntityRenderer;
+import com.piggydragons.morellagers.entities.ArmoredPillager;
+import com.piggydragons.morellagers.entities.ElitePillager;
 import com.piggydragons.morellagers.entities.Necrillager;
 import com.piggydragons.morellagers.registry.MorellagersEntities;
 import com.piggydragons.morellagers.registry.MorellagersItems;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -25,11 +24,8 @@ public class MorellagersEvents {
         @SubscribeEvent
         public static void registerAttributes(EntityAttributeCreationEvent event) {
             event.put(MorellagersEntities.NECRILLAGER.get(), Necrillager.attributes());
-        }
-
-        @SubscribeEvent
-        public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
-            DefaultedEntityRenderer.register(event, MorellagersEntities.NECRILLAGER);
+            event.put(MorellagersEntities.ARMORED_PILLAGER.get(), ArmoredPillager.attributes());
+            event.put(MorellagersEntities.ELITE_PILLAGER.get(), ElitePillager.attributes());
         }
 
         @SubscribeEvent
