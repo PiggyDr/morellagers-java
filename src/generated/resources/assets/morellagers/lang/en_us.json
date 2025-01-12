@@ -1,0 +1,9 @@
+{
+  "effect.morellagers.ephemeral": "Ephemeral",
+  "entity.morellagers.armored_pillager": "Armored Pillager",
+  "entity.morellagers.elite_pillager": "Elite Pillager",
+  "entity.morellagers.necrillager": "Necrillager",
+  "item.morellagers.armored_pillager_spawn_egg": "Armored Pillager Spawn Egg",
+  "item.morellagers.elite_pillager_spawn_egg": "Elite Pillager Spawn Egg",
+  "item.morellagers.necrillager_spawn_egg": "Necrillager Spawn Egg"
+}

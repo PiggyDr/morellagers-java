@@ -1,14 +1,20 @@
 package com.piggydragons.morellagers;
 
 import com.piggydragons.morellagers.capability.SummonedMinionCap;
+import com.piggydragons.morellagers.datagen.MorellagersTranslationProvider;
 import com.piggydragons.morellagers.entities.ArmoredPillager;
 import com.piggydragons.morellagers.entities.ElitePillager;
 import com.piggydragons.morellagers.entities.Necrillager;
 import com.piggydragons.morellagers.registry.MorellagersEntities;
 import com.piggydragons.morellagers.registry.MorellagersItems;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.DataProvider;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -35,6 +41,15 @@ public class MorellagersEvents {
                 event.accept(MorellagersItems.ARMORED_PILLAGER_SPAWN_EGG);
                 event.accept(MorellagersItems.ELITE_PILLAGER_SPAWN_EGG);
             }
+        }
+
+        @SubscribeEvent
+        public static void runDatagen(GatherDataEvent event) {
+            DataGenerator generator = event.getGenerator();
+            PackOutput packOutput = generator.getPackOutput();
+            ExistingFileHelper efh = event.getExistingFileHelper();
+
+            generator.addProvider(event.includeClient(), (DataProvider.Factory<MorellagersTranslationProvider>) output -> new MorellagersTranslationProvider(packOutput, Morellagers.MOD_ID, "en_us"));
         }
     }
 
