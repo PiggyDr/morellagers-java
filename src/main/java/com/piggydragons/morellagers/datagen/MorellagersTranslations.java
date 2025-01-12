@@ -10,9 +10,9 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Arrays;
 
-public class MorellagersTranslationProvider extends LanguageProvider {
+public class MorellagersTranslations extends LanguageProvider {
 
-    public MorellagersTranslationProvider(PackOutput output, String modid, String locale) {
+    public MorellagersTranslations(PackOutput output, String modid, String locale) {
         super(output, modid, locale);
     }
 

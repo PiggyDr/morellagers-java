@@ -1,7 +1,8 @@
 package com.piggydragons.morellagers;
 
 import com.piggydragons.morellagers.capability.SummonedMinionCap;
-import com.piggydragons.morellagers.datagen.MorellagersTranslationProvider;
+import com.piggydragons.morellagers.datagen.MorellagersItemModels;
+import com.piggydragons.morellagers.datagen.MorellagersTranslations;
 import com.piggydragons.morellagers.entities.ArmoredPillager;
 import com.piggydragons.morellagers.entities.ElitePillager;
 import com.piggydragons.morellagers.entities.Necrillager;
@@ -49,7 +50,8 @@ public class MorellagersEvents {
             PackOutput packOutput = generator.getPackOutput();
             ExistingFileHelper efh = event.getExistingFileHelper();
 
-            generator.addProvider(event.includeClient(), (DataProvider.Factory<MorellagersTranslationProvider>) output -> new MorellagersTranslationProvider(packOutput, Morellagers.MOD_ID, "en_us"));
+            generator.addProvider(event.includeClient(), (DataProvider.Factory<MorellagersItemModels>) output -> new MorellagersItemModels(packOutput, Morellagers.MOD_ID, efh));
+            generator.addProvider(event.includeClient(), (DataProvider.Factory<MorellagersTranslations>) output -> new MorellagersTranslations(packOutput, Morellagers.MOD_ID, "en_us"));
         }
     }
 
