@@ -5,6 +5,7 @@ import com.piggydragons.morellagers.client.model.ArmoredPillagerModel;
 import com.piggydragons.morellagers.client.renderer.ArmoredPillagerRenderer;
 import com.piggydragons.morellagers.client.renderer.DefaultedEntityRenderer;
 import com.piggydragons.morellagers.registry.MorellagersEntities;
+import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -21,6 +22,8 @@ public class MorellagersClientEvents {
 
             event.registerEntityRenderer(MorellagersEntities.ARMORED_PILLAGER.get(), ArmoredPillagerRenderer.provider("textures/entity/armored_pillager.png"));
             event.registerEntityRenderer(MorellagersEntities.ELITE_PILLAGER.get(), ArmoredPillagerRenderer.provider("textures/entity/elite_pillager.png"));
+
+            event.registerEntityRenderer(MorellagersEntities.SUMMONING_LINE.get(), NoopRenderer::new);
         }
 
         @SubscribeEvent

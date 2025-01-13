@@ -5,7 +5,7 @@ package com.piggydragons.morellagers.client.model;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.piggydragons.morellagers.Morellagers;
-import com.piggydragons.morellagers.entities.ArmoredPillager;
+import com.piggydragons.morellagers.entities.enemy.ArmoredPillager;
 import net.minecraft.client.model.AnimationUtils;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.HeadedModel;

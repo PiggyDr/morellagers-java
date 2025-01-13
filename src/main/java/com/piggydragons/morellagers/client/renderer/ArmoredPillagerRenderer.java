@@ -2,7 +2,7 @@ package com.piggydragons.morellagers.client.renderer;
 
 import com.piggydragons.morellagers.Morellagers;
 import com.piggydragons.morellagers.client.model.ArmoredPillagerModel;
-import com.piggydragons.morellagers.entities.ArmoredPillager;
+import com.piggydragons.morellagers.entities.enemy.ArmoredPillager;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;

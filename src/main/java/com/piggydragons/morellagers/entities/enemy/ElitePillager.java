@@ -1,4 +1,4 @@
-package com.piggydragons.morellagers.entities;
+package com.piggydragons.morellagers.entities.enemy;
 
 import com.piggydragons.morellagers.Morellagers;
 import com.piggydragons.morellagers.util.MorellagersNbtUtils;

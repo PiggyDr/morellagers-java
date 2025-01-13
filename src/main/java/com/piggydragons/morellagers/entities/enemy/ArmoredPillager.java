@@ -1,4 +1,4 @@
-package com.piggydragons.morellagers.entities;
+package com.piggydragons.morellagers.entities.enemy;
 
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;

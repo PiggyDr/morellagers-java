@@ -1,6 +1,8 @@
-package com.piggydragons.morellagers.entities;
+package com.piggydragons.morellagers.entities.enemy;
 
 import com.piggydragons.morellagers.capability.SummonedMinionCap;
+import com.piggydragons.morellagers.entities.nonliving.SummoningLine;
+import com.piggydragons.morellagers.registry.MorellagersEntities;
 import com.piggydragons.morellagers.registry.MorellagersMobEffects;
 import com.piggydragons.morellagers.util.MorellagersParticleUtils;
 import net.minecraft.core.BlockPos;
@@ -159,7 +161,7 @@ public class Necrillager extends AbstractIllager implements GeoEntity {
             MorellagersParticleUtils.spawnEntityEffectWithDelta(level(), getX(), getY(0.5), getZ(), 0.45, 0.45, 0.45, 0, 1, (double) 1 / 0x94, 2); // spawn casting particles
     }
 
-    class SummonGoal extends Goal {
+    class SummonGoal extends Goal { // TODO necrillager should stop moving when casting
 
         private static final int CAST_RANGE = 8;
         private static final int CAST_DURATION = 40;
@@ -214,16 +216,12 @@ public class Necrillager extends AbstractIllager implements GeoEntity {
                     summon(EntityType.WITHER_SKELETON, Items.STONE_SWORD, mob.getX() - 2.2, mob.getZ() - 2.2);
                     break;
                 case 2:
-                    Vec3 targetDir = mob.position().subtract(mob.getTarget().position()).normalize();
-                    Vec2 targetDir2d = new Vec2((float) targetDir.x(), (float) targetDir.z());
-
-                    Vec2 lineDir = new Vec2(-targetDir2d.y, targetDir2d.x);
-                    Vec2 lineStart = targetDir2d.scale((float) (mob.position().distanceTo(mob.getTarget().position()) / -2))
-                            .add(new Vec2((float) mob.getX(), (float) mob.getZ())).add(lineDir.scale(-3.5F));
-                    for (int i = 0; i < 8; i++) {
-                        Vec2 summonPos = lineStart.add(lineDir.scale(i));
-                        summon(EntityType.ZOMBIE, Items.AIR, summonPos.x, summonPos.y);
-                    }
+                    Vec3 targetDir = mob.getTarget().position().subtract(mob.position());
+                    SummoningLine line = new SummoningLine(MorellagersEntities.SUMMONING_LINE.get(), mob.level(),
+                            new Vec2((float) targetDir.x(), (float) targetDir.z()), 8, 8, 12,
+                            mob, SummoningLine.MinionType.ZOMBIE, SoundEvents.BONE_BLOCK_PLACE, ParticleTypes.POOF);
+                    line.setPos(mob.position());
+                    mob.level().addFreshEntity(line);
             }
             mob.playSound(SoundEvents.EVOKER_CAST_SPELL); // play cast sound
 

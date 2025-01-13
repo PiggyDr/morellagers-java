@@ -16,7 +16,7 @@ public class MorellagersItems {
 
     private static final int PILLAGER_BACKGROUND = ((SpawnEggItem) Items.PILLAGER_SPAWN_EGG).getColor(0); // for reference
     private static final int PILLAGER_HIGHLIGHT = ((SpawnEggItem) Items.PILLAGER_SPAWN_EGG).getColor(1);
-    public static final RegistryObject<ForgeSpawnEggItem> NECRILLAGER_SPAWN_EGG = spawnEgg(MorellagersEntities.NECRILLAGER, PILLAGER_BACKGROUND, 0x512e4f);
+    public static final RegistryObject<ForgeSpawnEggItem> NECRILLAGER_SPAWN_EGG = spawnEgg(MorellagersEntities.NECRILLAGER, PILLAGER_BACKGROUND, 0x512e4f); // FIXME wrong colors
     public static final RegistryObject<ForgeSpawnEggItem> ARMORED_PILLAGER_SPAWN_EGG = spawnEgg(MorellagersEntities.ARMORED_PILLAGER, PILLAGER_BACKGROUND, PILLAGER_HIGHLIGHT);
     public static final RegistryObject<ForgeSpawnEggItem> ELITE_PILLAGER_SPAWN_EGG = spawnEgg(MorellagersEntities.ELITE_PILLAGER, PILLAGER_BACKGROUND, PILLAGER_HIGHLIGHT);
 
