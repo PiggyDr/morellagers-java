@@ -3,6 +3,7 @@ package com.piggydragons.morellagers.entities.enemy;
 import com.piggydragons.morellagers.capability.SummonedMinionCap;
 import com.piggydragons.morellagers.entities.nonliving.SummoningLine;
 import com.piggydragons.morellagers.registry.MorellagersEntities;
+import com.piggydragons.morellagers.entities.ai.MorellagersMoveToTargetGoal;
 import com.piggydragons.morellagers.registry.MorellagersMobEffects;
 import com.piggydragons.morellagers.util.MorellagersParticleUtils;
 import net.minecraft.core.BlockPos;
@@ -20,7 +21,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.IronGolem;
@@ -252,20 +256,15 @@ public class Necrillager extends AbstractIllager implements GeoEntity {
         }
     }
 
-    class NecrillagerMoveToTargetGoal extends Goal {
+    class NecrillagerMoveToTargetGoal extends MorellagersMoveToTargetGoal {
 
-        private static final int WANTED_RANGE_SQR = 36;
-        private final Necrillager mob = Necrillager.this;
-
-        @Override
-        public boolean canUse() {
-            return mob.getTarget() != null && mob.canCast() && mob.distanceToSqr(mob.getTarget()) > WANTED_RANGE_SQR;
+        public NecrillagerMoveToTargetGoal() {
+            super(Necrillager.this, 6);
         }
 
         @Override
-        public void tick() {
-            mob.getNavigation().moveTo(mob.getTarget(), 1);
-            if (mob.distanceToSqr(mob.getTarget()) < WANTED_RANGE_SQR) stop();
+        public boolean canUse() {
+            return super.canUse() && ((Necrillager) mob).canCast();
         }
     }
 }

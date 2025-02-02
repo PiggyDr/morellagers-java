@@ -6,6 +6,7 @@ import com.piggydragons.morellagers.entities.enemy.ElitePillager;
 import com.piggydragons.morellagers.entities.enemy.Necrillager;
 import com.piggydragons.morellagers.entities.nonliving.SummoningLine;
 import net.minecraft.world.entity.Entity;
+import com.piggydragons.morellagers.entities.enemy.Electrillager;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.monster.AbstractIllager;
@@ -19,6 +20,7 @@ public class MorellagersEntities {
     public static final RegistryObject<EntityType<Necrillager>> NECRILLAGER = simpleIllager("necrillager", Necrillager::new);
     public static final RegistryObject<EntityType<ArmoredPillager>> ARMORED_PILLAGER = simpleIllager("armored_pillager", ArmoredPillager::new);
     public static final RegistryObject<EntityType<ElitePillager>> ELITE_PILLAGER = simpleIllager("elite_pillager", ElitePillager::new);
+    public static final RegistryObject<EntityType<Electrillager>> ELECTRILLAGER = simpleIllager("electrillager", Electrillager::new);
 
     public static final RegistryObject<EntityType<SummoningLine>> SUMMONING_LINE = utilEntity("summoning_line", SummoningLine::new);
 

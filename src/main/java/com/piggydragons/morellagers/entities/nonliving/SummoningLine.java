@@ -18,10 +18,7 @@ import net.minecraft.nbt.NbtUtils;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.monster.Pillager;
 import net.minecraft.world.entity.monster.Vindicator;
 import net.minecraft.world.entity.monster.Zombie;
@@ -40,7 +37,7 @@ import java.util.function.Function;
 
 public class SummoningLine extends Entity {
 
-    public enum MinionType {
+    public enum MinionType { // TODO make this a registry instead
         ZOMBIE(line -> new Zombie(EntityType.ZOMBIE, line.level())),
         PILLAGER(line -> {
             Pillager minion = new Pillager(EntityType.PILLAGER, line.level());
@@ -53,15 +50,16 @@ public class SummoningLine extends Entity {
             minion.setItemInHand(minion.getUsedItemHand(), Items.IRON_AXE.getDefaultInstance());
             line.getOwner().filter(owner -> owner instanceof Raider).ifPresent(owner -> minion.setCurrentRaid(((Raider)owner).getCurrentRaid()));
             return minion;
-        });
+        }),
+        LIGHTNING_BOLT(line -> new LightningBolt(EntityType.LIGHTNING_BOLT, line.level()));
 
-        private Function<SummoningLine, ? extends Mob> factory;
+        private Function<SummoningLine, ? extends Entity> factory;
 
-        MinionType(Function<SummoningLine, ? extends Mob> factory) {
+        MinionType(Function<SummoningLine, ? extends Entity> factory) {
             this.factory = factory;
         }
 
-        public Mob create(SummoningLine summoner) {
+        public Entity create(SummoningLine summoner) {
             return factory.apply(summoner);
         }
     }
@@ -72,15 +70,26 @@ public class SummoningLine extends Entity {
     private @Nullable UUID owner = null;
     private MinionType minionType = MinionType.ZOMBIE;
     private long spawnTimestamp;
-    private SoundEvent sound;
-    private ParticleOptions particle;
+    private @Nullable SoundEvent sound = null;
+    private @Nullable ParticleOptions particle = null;
 
     public SummoningLine(EntityType<? extends SummoningLine> type, Level level) {
         super(type, level);
         this.noPhysics = true;
     }
 
-    public SummoningLine(EntityType<? extends SummoningLine> type, Level level, Vec2 dir, int duration, int minionCount, int range, Entity owner, MinionType minionType, SoundEvent sound, ParticleOptions particle) {
+    public SummoningLine(
+            EntityType<? extends SummoningLine> type,
+            Level level,
+            Vec2 dir,
+            int duration,
+            int minionCount,
+            int range,
+            Entity owner,
+            MinionType minionType,
+            @Nullable SoundEvent sound,
+            @Nullable ParticleOptions particle
+    ) {
         this(type, level);
 
         this.summonOffset = dir.normalized().scale((float) range / minionCount);
@@ -114,9 +123,9 @@ public class SummoningLine extends Entity {
         else this.owner = null;
         this.minionType = MinionType.valueOf(nbt.getString("minion_type"));
         this.spawnTimestamp = nbt.getLong("spawn_timestamp");
-        this.sound = MorellagersNbtUtils.readRegistryId(nbt.getString("sound"), BuiltInRegistries.SOUND_EVENT);
+        if (nbt.contains("sound")) this.sound = MorellagersNbtUtils.readRegistryId(nbt.getString("sound"), BuiltInRegistries.SOUND_EVENT);
         try {
-            this.particle = ParticleArgument.readParticle(new StringReader(nbt.getString("particle")), BuiltInRegistries.PARTICLE_TYPE.asLookup());
+            if (nbt.contains("particle")) this.particle = ParticleArgument.readParticle(new StringReader(nbt.getString("particle")), BuiltInRegistries.PARTICLE_TYPE.asLookup());
         } catch (CommandSyntaxException e) {
             this.particle = ParticleTypes.POOF;
         }
@@ -131,32 +140,28 @@ public class SummoningLine extends Entity {
         if (owner != null) nbt.putUUID("owner", owner);
         nbt.putString("minion_type", minionType.name());
         nbt.putLong("spawn_timestamp", spawnTimestamp);
-        nbt.putString("sound", MorellagersNbtUtils.writeRegistryId(sound, BuiltInRegistries.SOUND_EVENT));
-        nbt.putString("particle", particle.writeToString());
+        if (sound != null) nbt.putString("sound", MorellagersNbtUtils.writeRegistryId(sound, BuiltInRegistries.SOUND_EVENT));
+        if (particle != null) nbt.putString("particle", particle.writeToString());
     }
 
     @Override
     public void tick() {
         super.tick();
 
-//        Morellagers.LOGGER.debug("ticking SummoningLine");
         if (this.level() instanceof ServerLevel) {
             int lifetime = (int) (this.level().getGameTime() - this.spawnTimestamp);
-//            Morellagers.LOGGER.debug("lifetime: {}", lifetime);
             if (lifetime % ticksPerSummon == 0) {
-//                Morellagers.LOGGER.info("spawned minion");
                 this.move(MoverType.SELF, new Vec3(summonOffset.x, 0, summonOffset.y));
-                Mob minion = this.minionType.create(this);
+                Entity minion = this.minionType.create(this);
                 minion.setPos(getX(), level().getHeightmapPos(Heightmap.Types.WORLD_SURFACE, BlockPos.containing(position())).getY(), getZ());
-//                Morellagers.LOGGER.debug("moved to {}", this.position());
                 minion.getCapability(SummonedMinionCap.SUMMONED_MINION).ifPresent(cap -> {
-                    minion.addEffect(new MobEffectInstance(MorellagersMobEffects.EPHEMERAL.get(), 200, 0, false, false));
+                    if (minion instanceof LivingEntity)
+                        ((LivingEntity) minion).addEffect(new MobEffectInstance(MorellagersMobEffects.EPHEMERAL.get(), 200, 0, false, false));
                     cap.setMinion(true);
                     cap.setSummonerUUID(this.owner);
-//                    Morellagers.LOGGER.debug("minioned minion");
                 });
-                minion.playSound(sound, 0.3F, 1);
-                ((ServerLevel)level()).sendParticles(particle, minion.getX(), minion.getY(0.5), minion.getZ(), 3, minion.getBbWidth() * 0.33, minion.getBbHeight() * 0.33, minion.getBbWidth() * 0.33, 0.1);
+                if (sound != null) minion.playSound(sound, 0.3F, 1);
+                if (particle != null) ((ServerLevel)level()).sendParticles(particle, minion.getX(), minion.getY(0.5), minion.getZ(), 3, minion.getBbWidth() * 0.33, minion.getBbHeight() * 0.33, minion.getBbWidth() * 0.33, 0.1);
                 this.level().addFreshEntity(minion);
                 this.remainingSummons--;
                 if (this.remainingSummons == 0) this.discard();

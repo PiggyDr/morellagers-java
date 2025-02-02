@@ -6,6 +6,7 @@ import com.piggydragons.morellagers.datagen.MorellagersTranslations;
 import com.piggydragons.morellagers.entities.enemy.ArmoredPillager;
 import com.piggydragons.morellagers.entities.enemy.ElitePillager;
 import com.piggydragons.morellagers.entities.enemy.Necrillager;
+import com.piggydragons.morellagers.entities.enemy.Electrillager;
 import com.piggydragons.morellagers.registry.MorellagersEntities;
 import com.piggydragons.morellagers.registry.MorellagersItems;
 import net.minecraft.data.DataGenerator;
@@ -33,6 +34,7 @@ public class MorellagersEvents {
             event.put(MorellagersEntities.NECRILLAGER.get(), Necrillager.attributes());
             event.put(MorellagersEntities.ARMORED_PILLAGER.get(), ArmoredPillager.attributes());
             event.put(MorellagersEntities.ELITE_PILLAGER.get(), ElitePillager.attributes());
+            event.put(MorellagersEntities.ELECTRILLAGER.get(), Electrillager.attributes());
         }
 
         @SubscribeEvent

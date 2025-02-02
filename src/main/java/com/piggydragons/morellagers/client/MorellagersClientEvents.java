@@ -19,6 +19,7 @@ public class MorellagersClientEvents {
         @SubscribeEvent
         public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
             DefaultedEntityRenderer.register(event, MorellagersEntities.NECRILLAGER);
+            DefaultedEntityRenderer.register(event, MorellagersEntities.ELECTRILLAGER);
 
             event.registerEntityRenderer(MorellagersEntities.ARMORED_PILLAGER.get(), ArmoredPillagerRenderer.provider("textures/entity/armored_pillager.png"));
             event.registerEntityRenderer(MorellagersEntities.ELITE_PILLAGER.get(), ArmoredPillagerRenderer.provider("textures/entity/elite_pillager.png"));
