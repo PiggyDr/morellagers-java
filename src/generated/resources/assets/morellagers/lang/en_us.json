@@ -1,8 +1,10 @@
 {
   "effect.morellagers.ephemeral": "Ephemeral",
   "entity.morellagers.armored_pillager": "Armored Pillager",
+  "entity.morellagers.electrillager": "Electrillager",
   "entity.morellagers.elite_pillager": "Elite Pillager",
   "entity.morellagers.necrillager": "Necrillager",
+  "entity.morellagers.summoning_line": "Summoning Line",
   "item.morellagers.armored_pillager_spawn_egg": "Armored Pillager Spawn Egg",
   "item.morellagers.elite_pillager_spawn_egg": "Elite Pillager Spawn Egg",
   "item.morellagers.necrillager_spawn_egg": "Necrillager Spawn Egg"

@@ -19,6 +19,7 @@ public class MorellagersItems {
     public static final RegistryObject<ForgeSpawnEggItem> NECRILLAGER_SPAWN_EGG = spawnEgg(MorellagersEntities.NECRILLAGER, PILLAGER_BACKGROUND, 0x512e4f); // FIXME wrong colors
     public static final RegistryObject<ForgeSpawnEggItem> ARMORED_PILLAGER_SPAWN_EGG = spawnEgg(MorellagersEntities.ARMORED_PILLAGER, PILLAGER_BACKGROUND, PILLAGER_HIGHLIGHT);
     public static final RegistryObject<ForgeSpawnEggItem> ELITE_PILLAGER_SPAWN_EGG = spawnEgg(MorellagersEntities.ELITE_PILLAGER, PILLAGER_BACKGROUND, PILLAGER_HIGHLIGHT);
+    public static final RegistryObject<ForgeSpawnEggItem> ELECTRILLAGER_SPAWN_EGG = spawnEgg(MorellagersEntities.ELECTRILLAGER, PILLAGER_BACKGROUND, 0xeded14);
 
     private static <T extends Mob> RegistryObject<ForgeSpawnEggItem> spawnEgg(RegistryObject<EntityType<T>> type, int background, int highlight) {
         return spawnEgg(type, background, highlight, new Item.Properties());

@@ -23,6 +23,7 @@ import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 public class MorellagersEvents {
 
@@ -43,6 +44,7 @@ public class MorellagersEvents {
                 event.accept(MorellagersItems.NECRILLAGER_SPAWN_EGG);
                 event.accept(MorellagersItems.ARMORED_PILLAGER_SPAWN_EGG);
                 event.accept(MorellagersItems.ELITE_PILLAGER_SPAWN_EGG);
+                event.accept(MorellagersItems.ELECTRILLAGER_SPAWN_EGG);
             }
         }
 
@@ -54,6 +56,13 @@ public class MorellagersEvents {
 
             generator.addProvider(event.includeClient(), (DataProvider.Factory<MorellagersItemModels>) output -> new MorellagersItemModels(packOutput, Morellagers.MOD_ID, efh));
             generator.addProvider(event.includeClient(), (DataProvider.Factory<MorellagersTranslations>) output -> new MorellagersTranslations(packOutput, Morellagers.MOD_ID, "en_us"));
+        }
+
+        @SubscribeEvent
+        public static void commonSetup(FMLCommonSetupEvent event) {
+            event.enqueueWork(() -> {
+                MorellagersEntities.registerRaiders();
+            });
         }
     }
 
