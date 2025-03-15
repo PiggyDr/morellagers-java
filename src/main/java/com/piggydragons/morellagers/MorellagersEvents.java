@@ -80,6 +80,7 @@ public class MorellagersEvents {
         public static void onMobTarget(LivingChangeTargetEvent event) {
             if (event.getNewTarget() != null
                     && event.getEntity().getCapability(SummonedMinionCap.SUMMONED_MINION)
+                    .filter(SummonedMinionCap::isMinion)
                     .map(cap -> cap.getSummonerUUID() == event.getNewTarget().getUUID()
                         || event.getNewTarget().getCapability(SummonedMinionCap.SUMMONED_MINION)
                             .map(targetCap -> targetCap.getSummonerUUID() == cap.getSummonerUUID())

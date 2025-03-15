@@ -28,7 +28,7 @@ public class MorellagersEntities {
     public static final RegistryObject<EntityType<SummoningLine>> SUMMONING_LINE = utilEntity("summoning_line", SummoningLine::new);
 
     private static <T extends Entity> RegistryObject<EntityType<T>> utilEntity(String id, EntityType.EntityFactory<T> factory) {
-        return ENTITIES.register(id, () -> EntityType.Builder.of(factory, MobCategory.MONSTER)
+        return ENTITIES.register(id, () -> EntityType.Builder.of(factory, MobCategory.MISC)
                 .sized(0.4f, 0.4f).build(id));
     }
 
